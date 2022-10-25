@@ -23,7 +23,8 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()],
-      dts: 'src/components.d.ts' // auto-generated
+      dts: 'src/components.d.ts', // auto-generated
+      dirs: ['src/components', 'src/layouts']
     })
   ]
 })
