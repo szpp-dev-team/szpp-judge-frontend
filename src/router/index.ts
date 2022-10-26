@@ -40,6 +40,10 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: false
     }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: { path: '/contests' }
   }
 ]
 
