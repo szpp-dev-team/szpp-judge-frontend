@@ -10,7 +10,7 @@
     :ellipsis="false"
     @select="handleSelect"
   >
-    <el-menu-item index="0" style="pointer-events: none"
+    <el-menu-item index="0" :route="{ path: '/contests' }"
       >Szpp Judge</el-menu-item
     >
     <el-sub-menu index="1">
@@ -19,13 +19,20 @@
         v-for="(task, index) in tasks"
         :index="'1' + index"
         :route="{ path: '/contests/1/tasks/' + (index + 1) }"
+        v-bind:key="index"
       >
         {{ task.name }}
       </el-menu-item>
     </el-sub-menu>
+    <el-menu-item :route="{ path: '/contests/1/submits' }"
+      >提出一覧</el-menu-item
+    >
+    <el-menu-item :route="{ path: '/contests/1/ranking' }"
+      >ランキング</el-menu-item
+    >
     <!-- <el-menu-item index="1">コンテスト</el-menu-item> -->
     <div class="flex-grow" />
-    <el-sub-menu index="2" v-if="user">
+    <el-sub-menu index="3" v-if="user">
       <template #title>
         <i-ep-avatar style="margin-right: 0.25rem" />
         <span>{{ user.displayName ?? 'No name' }}</span>
