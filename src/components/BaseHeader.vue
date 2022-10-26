@@ -10,20 +10,30 @@
       :router="true"
       :ellipsis="false"
       @select="handleSelect"
+      menu-trigger="click"
     >
       <el-menu-item index="0" :route="{ path: '/contests' }"
         >Szpp Judge</el-menu-item
       >
       <el-sub-menu index="1">
-        <template #title>問題</template>
-        <el-menu-item
-          v-for="(task, index) in tasks"
-          :index="'1' + index"
-          :route="{ path: '/contests/1/tasks/' + (index + 1) }"
-          v-bind:key="index"
-        >
-          {{ task.name }}
-        </el-menu-item>
+        <template #title style="padding: 0">問題</template>
+        <el-row :gutter="20" style="margin: 0">
+          <el-col
+            v-for="(task, index) in tasks"
+            :key="index"
+            :span="6"
+            style="padding: 0"
+          >
+            <el-menu-item
+              :index="'1' + index"
+              :route="{ path: '/contests/1/tasks/' + (index + 1) }"
+              v-bind:key="index"
+              style="margin-left: 1212"
+            >
+              {{ task.name }}
+            </el-menu-item>
+          </el-col>
+        </el-row>
       </el-sub-menu>
       <el-menu-item :route="{ path: '/contests/1/submits' }"
         >提出一覧</el-menu-item
@@ -62,6 +72,14 @@ const tasks = [
   { name: 'A 優しい' },
   { name: 'B 普通' },
   { name: 'C 難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
+  { name: 'D 超難しい' },
   { name: 'D 超難しい' }
 ]
 const activeIndex = ref('1')
