@@ -4,11 +4,17 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/contests'
+    redirect: '/contests',
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: '/contests',
-    component: () => import('~/pages/contests.vue')
+    component: () => import('~/pages/contests.vue'),
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: '/contests/:contestId',
@@ -25,9 +31,15 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'tasks/:taskId',
         component: () => import('~/pages/contests/tasks/index.vue'),
-        props: (route) => ({ taskId: route.params.taskId })
+        props: (route) => ({ taskId: route.params.taskId }),
+        meta: {
+          requiresAuth: false
+        }
       }
-    ]
+    ],
+    meta: {
+      requiresAuth: false
+    }
   }
 ]
 
