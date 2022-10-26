@@ -7,14 +7,14 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     redirect: '/contests',
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
     path: '/contests',
     component: () => import('~/pages/contests.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -34,17 +34,18 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/pages/contests/tasks/index.vue'),
         props: (route) => ({ taskId: route.params.taskId }),
         meta: {
-          requiresAuth: false
+          requiresAuth: true
         }
       }
     ],
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: { path: '/contests' }
+    redirect: { path: '/contests' },
+    meta: { requiresAuth: true }
   }
 ]
 
