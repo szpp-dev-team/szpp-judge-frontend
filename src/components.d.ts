@@ -21,3 +21,5 @@ declare module '@vue/runtime-core' {
     SzppJudgeDefaultLayout: typeof import('./layouts/szpp-judge-default-layout.vue')['default']
   }
 }
+
+declare module 'vue3-markdown-it'
