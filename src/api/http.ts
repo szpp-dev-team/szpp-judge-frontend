@@ -1,12 +1,8 @@
 import axios from 'axios'
-import { TaskResponse } from '~/model/model'
+import { TaskResponse } from '~/model/tasks'
 
-const axis = axios
-  .create
-  // {
-  //     baseURL: ''
-  // }
-  ()
+// pathがわかったらbaseURLに追加する。
+const axis = axios.create()
 
 export const httpGetTasks = async (
   contest_id: number

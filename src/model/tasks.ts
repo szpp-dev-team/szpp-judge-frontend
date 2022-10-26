@@ -12,7 +12,7 @@ export interface TaskResponse {
   task_type: string
   isDraft: boolean
   isPublic: boolean
-  contestId?: number[]
+  contestId?: number
   authorId: number
   createdAt: Date
   updatedAt?: Date
