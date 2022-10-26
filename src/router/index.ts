@@ -1,22 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import useAuthStore from '~/stores/authStore'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/contests'
+    redirect: '/contests',
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/contests',
     // 今回は、pagesのcontest.vueは読み込まない形でお願いしたいです。
     // 第2回以降は用いると思います
     //component: () => import('~/pages/contests.vue')
-    redirect: '/contests/1'
+    redirect: '/contests/1',
+    meta: { requiresAuth: true }
+    //component: () => import('~/pages/contests.vue'),
+    // meta: {
+    //   requiresAuth: true
+    // }
   },
   {
     path: '/contests/:contestId',
     component: () => import('~/pages/contests/index.vue'),
-    props: (route) => ({ contestId: route.params.contestId })
+    props: (route) => ({ contestId: route.params.contestId }),
+    meta: { requiresAuth: true }
 
     // children: [
     //   // task 一覧はあると紛らわしい場合があるので省略
@@ -32,21 +42,42 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/contests/:contestId/tasks/:taskId',
     component: () => import('~/pages/contests/tasks/index.vue'),
-    props: (route) => ({ taskId: route.params.taskId })
+    props: (route) => ({ taskId: route.params.taskId }),
+    meta: { requiresAuth: true }
   },
   {
     path: '/contests/:contestId/submits',
     component: () => import('~/pages/contests/submit/index.vue'),
-    props: (route) => ({ contestId: route.params.contestId })
+    props: (route) => ({ contestId: route.params.contestId }),
+    meta: { requiresAuth: true }
   },
   {
     path: '/contests/:contestId/ranking',
     component: () => import('~/pages/contests/ranking/index.vue'),
-    props: (route) => ({ contestId: route.params.contestId })
+    props: (route) => ({ contestId: route.params.contestId }),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/login',
+    component: () => import('~/pages/login.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: { path: '/contests' },
+    meta: { requiresAuth: true }
   }
 ]
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+router.beforeEach((to) => {
+  const auth = useAuthStore()
+  if (to.path !== '/login' && to.meta.requiresAuth && !auth.user)
+    return { path: '/login' }
+})
+
+export default router
