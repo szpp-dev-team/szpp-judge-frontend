@@ -41,19 +41,19 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/contests/:contestId/tasks/:taskId',
-    component: () => import('~/pages/contests/tasks/index.vue'),
+    component: () => import('~/pages/contests/tasks/tasks.vue'),
     props: (route) => ({ taskId: route.params.taskId }),
     meta: { requiresAuth: true }
   },
   {
     path: '/contests/:contestId/submits',
-    component: () => import('~/pages/contests/submit/index.vue'),
+    component: () => import('~/pages/contests/submit/submit.vue'),
     props: (route) => ({ contestId: route.params.contestId }),
     meta: { requiresAuth: true }
   },
   {
     path: '/contests/:contestId/ranking',
-    component: () => import('~/pages/contests/ranking/index.vue'),
+    component: () => import('~/pages/contests/ranking/ranking.vue'),
     props: (route) => ({ contestId: route.params.contestId }),
     meta: { requiresAuth: true }
   },

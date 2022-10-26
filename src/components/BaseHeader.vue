@@ -6,7 +6,7 @@
     background-color="#0794be"
     text-color="#fff"
     active-text-color="#fff"
-    :router="false"
+    :router="true"
     :ellipsis="false"
     @select="handleSelect"
   >
@@ -56,7 +56,12 @@ import router from '~/router'
 import useAuthStore from '~/stores/authStore'
 
 // サンプル
-const tasks = [{ name: 'A 優しい' }, { name: 'B 普通' }, { name: 'C 難しい' }]
+const tasks = [
+  { name: 'A 優しい' },
+  { name: 'B 普通' },
+  { name: 'C 難しい' },
+  { name: 'D 超難しい' }
+]
 const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
