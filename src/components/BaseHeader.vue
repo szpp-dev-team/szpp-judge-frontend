@@ -13,6 +13,16 @@
     <el-menu-item index="0" style="pointer-events: none"
       >Szpp Judge</el-menu-item
     >
+    <el-sub-menu index="1">
+      <template #title>問題</template>
+      <el-menu-item
+        v-for="(task, index) in tasks"
+        :index="'1' + index"
+        :route="{ path: '/contests/1/tasks/' + (index + 1) }"
+      >
+        {{ task.name }}
+      </el-menu-item>
+    </el-sub-menu>
     <!-- <el-menu-item index="1">コンテスト</el-menu-item> -->
     <div class="flex-grow" />
     <el-sub-menu index="2" v-if="user">
@@ -35,6 +45,7 @@
 import { ref } from 'vue'
 
 // サンプル
+const tasks = [{ name: 'A 優しい' }, { name: 'B 普通' }, { name: 'C 難しい' }]
 const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)

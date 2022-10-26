@@ -9,7 +9,7 @@ export interface TaskResponse {
   score: number
   timeLimit: number
   memoryLimit: number
-  task_type: string
+  taskType: string
   isDraft: boolean
   isPublic: boolean
   contestId?: number
