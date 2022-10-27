@@ -5,12 +5,12 @@
     :auto-upload="false"
     list-type="text"
     accept="file"
+    v-model:file-list="fileList"
     :limit="1"
-    v-model:file-list="uploadFiles"
     :on-change="onFileInputChange"
-    :disabled="readyToSubmit"
+    :on-exceed="onExceed"
   >
-    <el-button type="primary" :disabled="readyToSubmit">
+    <el-button type="primary">
       <el-icon class="el-icon--left"><i-ep-upload /></el-icon>
       ファイルを選択
     </el-button>
@@ -26,10 +26,13 @@
 </template>
 
 <script setup lang="ts">
-import type {
+import {
+  genFileId,
   UploadFile,
   UploadFiles,
   UploadInstance,
+  UploadProps,
+  UploadRawFile,
   UploadUserFile
 } from 'element-plus'
 import { reactive, ref } from 'vue'
@@ -48,7 +51,7 @@ const submitPayload = reactive<SubmitPayload>({
   sourceCode: ''
 })
 
-const uploadFiles = ref<UploadUserFile[]>([])
+const fileList = ref<UploadUserFile[]>([])
 const fileUploadRef = ref<UploadInstance>()
 
 const readyToSubmit = ref(false)
@@ -61,24 +64,40 @@ async function onFileInputChange(uploadFile: UploadFile, _: UploadFiles) {
     const converter = new Sb3ToCppConverter()
     try {
       submitPayload.sourceCode = await converter.convertFromZip(fileRaw)
-      updateReadyState()
     } catch (err) {
       alert(`Scratch3 プロジェクトを変換中にエラーが発生しました\n${err}`)
+    } finally {
+      updateReadyState()
     }
   } else {
-    uploadFiles.value = []
+    fileUploadRef.value && fileUploadRef.value.clearFiles()
     alert('拡張子が .sb3 で終わるファイルのみ受け付けます')
+    updateReadyState()
+  }
+}
+
+const onExceed: UploadProps['onExceed'] = (files) => {
+  if (fileUploadRef.value) {
+    fileUploadRef.value.clearFiles()
+    const file = files[0] as UploadRawFile
+    file.uid = genFileId()
+    fileUploadRef.value.handleStart(file)
+    updateReadyState()
   }
 }
 
 function updateReadyState() {
-  if (uploadFiles.value.length !== 1) readyToSubmit.value = false
-  else if (!uploadFiles.value[0].name.endsWith('.sb3'))
+  if (!fileList.value || fileList.value.length !== 1) {
     readyToSubmit.value = false
-  else readyToSubmit.value = true
+  } else if (!fileList.value[0].name.endsWith('.sb3')) {
+    readyToSubmit.value = false
+  } else {
+    readyToSubmit.value = true
+  }
 }
 
 function submit() {
-  console.log('submit() was called')
+  console.debug('submit() was called')
+  console.debug('submitPayload', submitPayload)
 }
 </script>
