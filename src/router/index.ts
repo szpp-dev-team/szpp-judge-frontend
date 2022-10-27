@@ -42,7 +42,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/contests/:contestId/tasks/:taskId',
     component: () => import('~/pages/contests/tasks/tasks.vue'),
-    props: (route) => ({ taskId: route.params.taskId }),
+    props: (route) => ({
+      contestId: route.params.contestId,
+      taskId: route.params.taskId
+    }),
     meta: { requiresAuth: true }
   },
   {
