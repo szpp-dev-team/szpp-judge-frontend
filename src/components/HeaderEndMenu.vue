@@ -15,6 +15,14 @@
       </el-dropdown-menu>
     </template>
   </el-dropdown>
+  <div class="header-end-menu no-login" v-else>
+    <router-link :to="{ path: '/login' }">
+      <el-icon class="el-icon--left">
+        <i-ep-avatar />
+      </el-icon>
+      ログイン
+    </router-link>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -46,6 +54,14 @@ function logout() {
 <style scoped>
 .header-end-menu {
   padding: 0 var(--el-menu-base-level-padding);
+}
+.header-end-menu.no-login {
+  color: var(--el-color-white);
+  font-size: var(
+    --el-font-size-base
+  ); /* --el-font-size-{extra-small|small|base|medium|extra-large} */
+  display: flex;
+  align-items: center;
 }
 .el-dropdown-link {
   cursor: pointer;
