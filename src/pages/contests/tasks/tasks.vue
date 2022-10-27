@@ -1,6 +1,11 @@
 <template>
   <szpp-judge-default-layout>
     <Markdown :source="source" :html="true" />
+    <el-divider direction="horizontal" />
+    <upload-task-form
+      :task-id="parseInt(taskId)"
+      :contest-id="parseInt(contestId)"
+    />
   </szpp-judge-default-layout>
 </template>
 
@@ -24,7 +29,8 @@ const source: string = `
  
 ---
 `
-const { taskId } = defineProps<{
+const { taskId, contestId } = defineProps<{
   taskId: string
+  contestId: string
 }>()
 </script>
