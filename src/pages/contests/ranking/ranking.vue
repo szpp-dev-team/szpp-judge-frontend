@@ -8,22 +8,42 @@
         :border="true"
         style="width: 80%"
         :header-cell-style="{ textAlign: 'center' }"
+        :cell-style="{ padding: '3px', height: '50px' }"
       >
-        <el-table-column label="順位" prop="rank" width="80" />
+        <el-table-column label="順位" width="80" class-name="score">
+          <template #default="scope">
+            <div class="center">
+              {{ scope.row.rank }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="name"
           label="ユーザ"
           label-class-name="problem"
           width="200"
         />
-        <el-table-column prop="score" label="得点" width="100" />
+        <el-table-column label="得点" width="100">
+          <template #default="scope">
+            <div class="center">
+              {{ scope.row.score }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           v-for="(prob, index) in 12"
           :key="index"
-          :prop="`pro[${index}]`"
-          :label="`${index}`"
+          :label="`${prob}`"
           width="100"
         >
+          <template #default="scope">
+            <p style="margin: 0">
+              {{ scope.row.pro[0] }}
+            </p>
+            <p style="margin: 0">
+              {{ scope.row.pro[1] }}
+            </p>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -44,13 +64,13 @@ const results = [
     rank: '1',
     name: 'hoge',
     score: '23423',
-    pro: ['32323423', '123', '121212']
+    pro: ['123', '121212']
   },
-  { rank: '2', name: 'hoge', score: '1231', 1: '122341', 2: '23423' },
-  { rank: '3', name: 'hoge', score: '1231', 1: '124231', 2: '23423' },
-  { rank: '4', name: 'hoge', score: '1231', 1: '122341', 2: '23423' },
-  { rank: '5', name: 'hoge', score: '1231', 1: '122341', 2: '23423' },
-  { rank: '6', name: 'hoge', score: '1231', 1: '12431', 2: '23423' }
+  { rank: '2', name: 'hoge', score: '1231', pro: ['100', '121212'] },
+  { rank: '3', name: 'hoge', score: '1231', pro: ['123', '121212'] },
+  { rank: '4', name: 'hoge', score: '1231', pro: ['123', '121212'] },
+  { rank: '5', name: 'hoge', score: '1231', pro: ['123', '121212'] },
+  { rank: '6', name: 'hoge', score: '1231', pro: ['123', '121212'] }
 ]
 </script>
 
@@ -89,11 +109,13 @@ const results = [
   background-color: #f0ad4e;
   color: white;
 }
+</style>
 
-//いい名前がわからない
+<!-- <style>
 .score {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  text-align: center;
   margin: 0;
 }
-</style>
+</style> -->

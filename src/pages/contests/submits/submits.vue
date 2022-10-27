@@ -9,7 +9,13 @@
         style="width: 75.1%"
         :header-cell-style="{ textAlign: 'center' }"
       >
-        <el-table-column label="提出日時" prop="date" width="180" />
+        <el-table-column label="提出日時" width="180">
+          <template #default="scope">
+            <div class="center">
+              {{ scope.row.date }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="problem"
           label="問題"
@@ -116,10 +122,5 @@ const problems = [
   -webkit-text-stroke: 0.01px white;
   background-color: #f0ad4e;
   color: white;
-}
-
-.cel {
-  display: flex;
-  justify-content: center;
 }
 </style>
