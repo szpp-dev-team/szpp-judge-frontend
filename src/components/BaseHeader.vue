@@ -9,7 +9,6 @@
       active-text-color="#fff"
       :router="true"
       :ellipsis="false"
-      @select="handleSelect"
       menu-trigger="click"
     >
       <el-menu-item index="0" :route="{ path: '/contests' }"
@@ -83,9 +82,6 @@ const tasks = [
   { name: 'D 超難しい' }
 ]
 const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 
 const auth = useAuthStore()
 const { user } = storeToRefs(auth)
