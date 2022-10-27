@@ -57,7 +57,6 @@ async function onFileInputChange(uploadFile: UploadFile, _: UploadFiles) {
   if (!uploadFile.raw) return
 
   const fileRaw = uploadFile.raw
-  const reader = new FileReader()
   if (uploadFile.name.endsWith('.sb3')) {
     const converter = new Sb3ToCppConverter()
     try {
@@ -70,7 +69,6 @@ async function onFileInputChange(uploadFile: UploadFile, _: UploadFiles) {
     uploadFiles.value = []
     alert('拡張子が .sb3 で終わるファイルのみ受け付けます')
   }
-  reader.readAsText(fileRaw)
 }
 
 function updateReadyState() {
