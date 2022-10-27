@@ -20,14 +20,17 @@ async function loginMock(username: string, password: string) {
 const useAuthStore = defineStore({
   id: 'auth',
   state() {
-    const { token } = JSON.parse(
+    const { user, token } = JSON.parse(
       localStorage.getItem('auth') ?? '{}'
-    ) as unknown as { token: string | null }
+    ) as unknown as {
+      user: UserInfo | null
+      token: string | null
+    }
     if (token) {
       // validate?
     }
     return {
-      user: null as UserInfo | null,
+      user: user as UserInfo | null,
       token: token as string | null
     }
   },
@@ -49,6 +52,16 @@ const useAuthStore = defineStore({
         },
         token
       })
+      localStorage.setItem(
+        'auth',
+        JSON.stringify({
+          user: {
+            username,
+            displayName: user.displayName
+          },
+          token
+        })
+      )
     }
   }
 })
