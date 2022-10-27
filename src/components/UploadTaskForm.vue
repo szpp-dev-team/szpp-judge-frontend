@@ -10,7 +10,7 @@
     :on-change="onFileInputChange"
     :disabled="readyToSubmit"
   >
-    <el-button type="primary">
+    <el-button type="primary" :disabled="readyToSubmit">
       <el-icon class="el-icon--left"><i-ep-upload /></el-icon>
       ファイルを選択
     </el-button>
