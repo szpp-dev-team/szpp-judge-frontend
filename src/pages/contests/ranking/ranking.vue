@@ -3,28 +3,27 @@
     <h1 class="center">ランキング</h1>
     <div class="center">
       <el-table
-        :data="problems"
+        :data="results"
         stripe
         :border="true"
-        style="width: 75.1%"
+        style="width: 80%"
         :header-cell-style="{ textAlign: 'center' }"
       >
-        <el-table-column label="順位" prop="date" width="180" />
+        <el-table-column label="順位" prop="rank" width="80" />
         <el-table-column
-          prop="problem"
+          prop="name"
           label="ユーザ"
           label-class-name="problem"
-          width="400"
+          width="200"
         />
         <el-table-column prop="score" label="得点" width="100" />
-        <el-table-column prop="result" label="結果" width="70">
-          <template #default="scope">
-            <div v-if="scope.row.result === 'AC'" class="iconAc">AC</div>
-            <div v-if="scope.row.result === 'WA'" class="iconWa">WA</div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="exectionTime" label="実行時間" width="100" />
-        <el-table-column prop="memory" label="メモリ" width="80">
+        <el-table-column
+          v-for="(prob, index) in 12"
+          :key="index"
+          :prop="`pro[${index}]`"
+          :label="`${index}`"
+          width="100"
+        >
         </el-table-column>
       </el-table>
     </div>
@@ -33,51 +32,25 @@
 <script setup lang="ts">
 import useAuthStore from '~/stores/authStore'
 import { storeToRefs } from 'pinia'
+import { RowJustify } from 'element-plus'
 const auth = useAuthStore()
 const { user } = storeToRefs(auth)
 
 //test
-const problems = [
+const problems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+const results = [
   {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'WA',
-    exectionTime: '9 ms',
-    memory: '10'
+    rank: '1',
+    name: 'hoge',
+    score: '23423',
+    pro: ['32323423', '123', '121212']
   },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'WA',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'AC',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'AC',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'AC',
-    exectionTime: '9 ms',
-    memory: '10'
-  }
+  { rank: '2', name: 'hoge', score: '1231', 1: '122341', 2: '23423' },
+  { rank: '3', name: 'hoge', score: '1231', 1: '124231', 2: '23423' },
+  { rank: '4', name: 'hoge', score: '1231', 1: '122341', 2: '23423' },
+  { rank: '5', name: 'hoge', score: '1231', 1: '122341', 2: '23423' },
+  { rank: '6', name: 'hoge', score: '1231', 1: '12431', 2: '23423' }
 ]
 </script>
 
@@ -117,8 +90,10 @@ const problems = [
   color: white;
 }
 
-.cel {
+//いい名前がわからない
+.score {
   display: flex;
   justify-content: center;
+  margin: 0;
 }
 </style>

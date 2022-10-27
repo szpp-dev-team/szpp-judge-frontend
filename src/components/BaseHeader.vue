@@ -17,7 +17,7 @@
       >
       <el-sub-menu index="1">
         <template #title style="padding: 0">問題</template>
-        <el-row :gutter="20" style="margin: 0">
+        <el-row :gutter="10" style="margin: 0">
           <el-col
             v-for="(task, index) in tasks"
             :key="index"
@@ -72,7 +72,7 @@ const tasks = [
   { name: 'A 優しい' },
   { name: 'B 普通' },
   { name: 'C 難しい' },
-  { name: 'D 超難しい' },
+  { name: 'D 超難しfasdfasdfszdfasdfasdfsadfadsfdsafdafdfaい' },
   { name: 'D 超難しい' },
   { name: 'D 超難しい' },
   { name: 'D 超難しい' },
