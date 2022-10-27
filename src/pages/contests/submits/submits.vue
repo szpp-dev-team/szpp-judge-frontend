@@ -6,7 +6,7 @@
         :data="problems"
         stripe
         :border="true"
-        style="width: 75.1%"
+        style="width: 800px"
         :header-cell-style="{ textAlign: 'center' }"
       >
         <el-table-column label="提出日時" width="180">
@@ -20,22 +20,39 @@
           prop="problem"
           label="問題"
           label-class-name="problem"
-          width="400"
+          width="300"
         />
-        <el-table-column prop="score" label="得点" width="100" />
+        <el-table-column label="得点" width="70">
+          <template #default="scope">
+            <div class="center">
+              {{ scope.row.score }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="result" label="結果" width="70">
           <template #default="scope">
             <div v-if="scope.row.result === 'AC'" class="iconAc">AC</div>
             <div v-if="scope.row.result === 'WA'" class="iconWa">WA</div>
           </template>
         </el-table-column>
-        <el-table-column prop="exectionTime" label="実行時間" width="100" />
+        <el-table-column label="実行時間" width="100">
+          <template #default="socpe">
+            <div class="center">
+              {{ socpe.row.exectionTime }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="memory" label="メモリ" width="80">
+          <template #default="scope">
+            <div class="center">{{ scope.row.memory }}KB</div>
+          </template>
         </el-table-column>
       </el-table>
     </div>
   </szpp-judge-default-layout>
 </template>
+
+<!-- 提出時刻はcreatedAtを使う -->
 
 <script setup lang="ts">
 import useAuthStore from '~/stores/authStore'
