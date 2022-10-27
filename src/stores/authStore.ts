@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
+import { UserResponse } from '~/model/auth'
 
-interface UserInfo {
-  username: string
-  displayName: string
-}
+type UserInfo = Pick<UserResponse, 'username' | 'displayName'>
 
 async function loginMock(username: string, password: string) {
+  // const { isLoading, hasError, errorMessage, data } = await useFetch<SigninResponse>('/auth/signin', {
+  // })
   return {
     user: {
       id: 5,
@@ -42,12 +42,10 @@ const useAuthStore = defineStore({
       })
       localStorage.removeItem('auth')
     },
-    async login(username: string, password: string) {
-      // 動くけど適当
-      const { user, token } = await loginMock(username, password)
+    async saveAuth(user: UserInfo, token: string) {
       this.$patch({
         user: {
-          username,
+          username: user.username,
           displayName: user.displayName
         },
         token
@@ -56,7 +54,7 @@ const useAuthStore = defineStore({
         'auth',
         JSON.stringify({
           user: {
-            username,
+            username: user.username,
             displayName: user.displayName
           },
           token
