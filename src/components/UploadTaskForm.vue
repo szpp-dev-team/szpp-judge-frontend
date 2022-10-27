@@ -79,6 +79,6 @@ function updateReadyState() {
 }
 
 function submit() {
-  fileUploadRef.value!.submit()
+  console.log('submit() was called')
 }
 </script>
