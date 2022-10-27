@@ -36,5 +36,14 @@ export default defineConfig({
     Icons({
       autoInstall: true
     })
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vue3-markdown-it': ['vue3-markdown-it']
+        }
+      }
+    }
+  }
 })
