@@ -13,6 +13,9 @@
       <el-dropdown-menu>
         <el-dropdown-item command="logout">ログアウト</el-dropdown-item>
       </el-dropdown-menu>
+      <el-dropdown-menu>
+        <el-dropdown-item @click="register">登録</el-dropdown-item>
+      </el-dropdown-menu>
     </template>
   </el-dropdown>
   <div class="header-end-menu no-login" v-else>
@@ -50,6 +53,11 @@ function logout() {
   auth.logout()
   // 強制リダイレクト
   router.push({ path: '/login' })
+}
+
+function register() {
+  // 強制リダイレクト
+  router.push({ path: '/register' })
 }
 </script>
 

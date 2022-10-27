@@ -66,6 +66,11 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/register',
+    component: () => import('~/pages/register.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: { path: '/contests' },
     meta: { requiresAuth: true }
