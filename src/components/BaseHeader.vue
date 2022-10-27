@@ -41,30 +41,18 @@
         >ランキング</el-menu-item
       >
       <!-- <el-menu-item index="1">コンテスト</el-menu-item> -->
+
+      <!-- スペース -->
       <div class="flex-grow" />
-      <el-sub-menu index="3" v-if="user">
-        <template #title>
-          <i-ep-avatar style="margin-right: 0.25rem" />
-          <span>{{ user.displayName }}</span>
-        </template>
-        <el-menu-item @click="onLogoutClicked">ログアウト</el-menu-item>
-      </el-sub-menu>
-      <!-- ログインしてなくても見られるようにするならコメントアウトを外してこのコメントも消す -->
-      <!-- <el-menu-item v-else>
-      <template #title>
-        <i-ep-avatar style="margin-right: 0.25rem" />
-        <span>ログイン</span>
-      </template>
-    </el-menu-item> -->
+
+      <!-- ログイン ログアウトなど -->
+      <header-end-menu />
     </el-menu>
   </el-affix>
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
-import router from '~/router'
-import useAuthStore from '~/stores/authStore'
 
 // サンプル
 const tasks = [
@@ -82,15 +70,6 @@ const tasks = [
   { name: 'D 超難しい' }
 ]
 const activeIndex = ref('1')
-
-const auth = useAuthStore()
-const { user } = storeToRefs(auth)
-
-function onLogoutClicked() {
-  auth.logout()
-  // ログインページへ強制リダイレクト
-  router.push({ path: '/login' })
-}
 </script>
 
 <style scoped>
