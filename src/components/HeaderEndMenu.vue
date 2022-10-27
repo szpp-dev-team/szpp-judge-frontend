@@ -16,11 +16,13 @@
     </template>
   </el-dropdown>
   <div class="header-end-menu no-login" v-else>
-    <router-link :to="{ path: '/login' }">
-      <el-icon class="el-icon--left">
-        <i-ep-avatar />
-      </el-icon>
-      ログイン
+    <router-link :to="{ path: '/login' }" custom v-slot="{ navigate }">
+      <span @click="navigate" @keypress.enter="() => navigate()" role="link">
+        <el-icon class="el-icon--left">
+          <i-ep-avatar />
+        </el-icon>
+        ログイン
+      </span>
     </router-link>
   </div>
 </template>
@@ -60,6 +62,11 @@ function logout() {
   font-size: var(
     --el-font-size-base
   ); /* --el-font-size-{extra-small|small|base|medium|extra-large} */
+  display: flex;
+  align-items: center;
+}
+.no-login > span {
+  cursor: pointer;
   display: flex;
   align-items: center;
 }
