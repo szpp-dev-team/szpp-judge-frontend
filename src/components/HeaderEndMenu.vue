@@ -13,7 +13,7 @@
       <el-dropdown-menu>
         <el-dropdown-item command="logout">ログアウト</el-dropdown-item>
       </el-dropdown-menu>
-      <el-dropdown-menu>
+      <el-dropdown-menu v-if="!user">
         <el-dropdown-item @click="register">登録</el-dropdown-item>
       </el-dropdown-menu>
     </template>
