@@ -77,7 +77,7 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate(async (valid, _) => {
     if (valid) {
       loading.value = true
-      await auth.login(form.username, form.password)
+      //await auth.login(form.username, form.password)
       router.push({ path: '/' })
     }
   })
