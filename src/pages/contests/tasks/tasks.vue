@@ -13,7 +13,7 @@
     <Markdown :source="taskDetail?.constraints" />
     <Markdown :source="taskDetail?.input" />
     <Markdown :source="taskDetail?.output" />
-    <div v-for="test in testCase">
+    <div v-for="(test, index) in testCase" :key="index">
       <Markdown :source="test.input" />
       <Markdown :source="test.output" />
     </div>

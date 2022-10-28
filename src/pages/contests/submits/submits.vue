@@ -31,8 +31,11 @@
         </el-table-column>
         <el-table-column prop="result" label="結果" width="70">
           <template #default="scope">
-            <div v-if="scope.row.result === 'AC'" class="iconAc">AC</div>
-            <div v-if="scope.row.result === 'WA'" class="iconWa">WA</div>
+            <div v-if="scope.row.result === 'AC'" class="accept">AC</div>
+            <div v-if="scope.row.result === 'WA'" class="wrongResult">WA</div>
+            <div v-if="scope.row.result === 'TLE'" class="wrongResult">TLE</div>
+            <div v-if="scope.row.result === 'RE'" class="wrongResult">RE</div>
+            <div v-if="scope.row.result === 'CE'" class="wrongResult">CE</div>
           </template>
         </el-table-column>
         <el-table-column label="実行時間" width="100">
@@ -82,7 +85,7 @@ const problems = [
     date: '2022-06-20 18:09:15',
     problem: 'hoge',
     score: '2342',
-    result: 'AC',
+    result: 'RE',
     exectionTime: '9 ms',
     memory: '10'
   },
@@ -111,7 +114,7 @@ const problems = [
   justify-content: center;
 }
 
-.iconAc {
+.accept {
   justify-content: center;
   padding: 0.2em 0.6em 0.3em;
   box-sizing: border-box;
@@ -126,7 +129,7 @@ const problems = [
   color: white;
 }
 
-.iconWa {
+.wrongResult {
   justify-content: center;
   padding: 0.2em 0.6em 0.3em;
   box-sizing: border-box;

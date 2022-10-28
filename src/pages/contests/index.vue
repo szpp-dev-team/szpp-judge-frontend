@@ -27,7 +27,10 @@ const contestRes = ref<ContestResponse>()
 
 const needInfo = async () => {
   contestRes.value = await getContestsInfo(contestId)
+  console.log(contestRes.value)
 }
+
+onMounted(needInfo)
 
 //contestRes.value = await contests(1)
 </script>
