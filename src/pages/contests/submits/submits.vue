@@ -3,7 +3,7 @@
     <h1 class="center">{{ user?.username }}の提出一覧</h1>
     <div class="center">
       <el-table
-        :data="problems"
+        :data="submits"
         stripe
         :border="true"
         style="width: 800px"
@@ -57,52 +57,20 @@
 <script setup lang="ts">
 import useAuthStore from '~/stores/authStore'
 import { storeToRefs } from 'pinia'
+import { SubmitResponse } from '~/model/submits'
+import { onMounted, ref } from 'vue'
+import { listSubmitsMe } from '~/api/submits'
+
+const { contestId } = defineProps<{ contestId: string }>()
+
 const auth = useAuthStore()
 const { user } = storeToRefs(auth)
 
-//test
-const problems = [
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'WA',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'WA',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'AC',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'AC',
-    exectionTime: '9 ms',
-    memory: '10'
-  },
-  {
-    date: '2022-06-20 18:09:15',
-    problem: 'hoge',
-    score: '2342',
-    result: 'AC',
-    exectionTime: '9 ms',
-    memory: '10'
-  }
-]
+const submits = ref<SubmitResponse[]>([])
+
+onMounted(async () => {
+  submits.value = await listSubmitsMe(contestId)
+})
 </script>
 
 <style lang="scss" scoped>

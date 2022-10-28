@@ -51,7 +51,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/contests/:contestId/submits',
     component: () => import('~/pages/contests/submits/submits.vue'),
-    props: (route) => ({}),
+    props: (route) => ({ contestId: route.params.contestId }),
     meta: { requiresAuth: true }
   },
   {
