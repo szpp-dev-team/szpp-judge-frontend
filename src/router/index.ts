@@ -82,10 +82,18 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
+router.beforeEach((to, _from, next) => {
   const auth = useAuthStore()
-  if (to.path !== '/login' && to.meta.requiresAuth && !auth.user)
-    return { path: '/login' }
+  // TODO: デバッグ用のコメントをいつか削除する
+  console.log('-------------------------')
+  console.log('to:', to)
+  console.log('auth:', auth)
+  if (to.path !== '/login' && to.meta.requiresAuth && !auth.user) {
+    console.log('redirect to login')
+    next({ path: '/login' })
+  } else {
+    next()
+  }
 })
 
 export default router
