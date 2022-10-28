@@ -3,7 +3,7 @@
     <h1 class="center">{{ user?.username }}の提出一覧</h1>
     <div class="center">
       <el-table
-        :data="problems"
+        :data="submits"
         stripe
         :border="true"
         style="width: 800px"
@@ -60,6 +60,12 @@
 <script setup lang="ts">
 import useAuthStore from '~/stores/authStore'
 import { storeToRefs } from 'pinia'
+import { SubmitResponse } from '~/model/submits'
+import { onMounted, ref } from 'vue'
+import { listSubmitsMe } from '~/api/submits'
+
+const { contestId } = defineProps<{ contestId: string }>()
+
 const auth = useAuthStore()
 const { user } = storeToRefs(auth)
 
@@ -106,6 +112,11 @@ const problems = [
     memory: '10'
   }
 ]
+const submits = ref<SubmitResponse[]>([])
+
+onMounted(async () => {
+  submits.value = await listSubmitsMe(contestId)
+})
 </script>
 
 <style lang="scss" scoped>
