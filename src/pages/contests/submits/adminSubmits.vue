@@ -12,16 +12,15 @@
         <el-table-column label="提出日時" width="180">
           <template #default="scope">
             <div class="center">
-              {{ scope.row.date }}
+              {{ scope.row.createdAt }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="problem"
-          label="問題"
-          label-class-name="problem"
-          width="300"
-        />
+        <el-table-column label="問題" label-class-name="problem" width="300">
+          <template #default="scope">
+            {{ map?.get(scope.row.taskId) }}
+          </template>
+        </el-table-column>
         <el-table-column label="得点" width="70">
           <template #default="scope">
             <div class="center">
@@ -31,11 +30,11 @@
         </el-table-column>
         <el-table-column prop="result" label="結果" width="70">
           <template #default="scope">
-            <div v-if="scope.row.result === 'AC'" class="accept">AC</div>
-            <div v-if="scope.row.result === 'WA'" class="wrongResult">WA</div>
-            <div v-if="scope.row.result === 'TLE'" class="wrongResult">TLE</div>
-            <div v-if="scope.row.result === 'RE'" class="wrongResult">RE</div>
-            <div v-if="scope.row.result === 'CE'" class="wrongResult">CE</div>
+            <div v-if="scope.row.status === 'AC'" class="accept">AC</div>
+            <div v-if="scope.row.status === 'WA'" class="wrongResult">WA</div>
+            <div v-if="scope.row.status === 'TLE'" class="wrongResult">TLE</div>
+            <div v-if="scope.row.status === 'RE'" class="wrongResult">RE</div>
+            <div v-if="scope.row.status === 'CE'" class="wrongResult">CE</div>
           </template>
         </el-table-column>
         <el-table-column label="実行時間" width="100">
@@ -47,7 +46,7 @@
         </el-table-column>
         <el-table-column prop="memory" label="メモリ" width="80">
           <template #default="scope">
-            <div class="center">{{ scope.row.memory }}KB</div>
+            <div class="center">{{ scope.row.executionMemory }}KB</div>
           </template>
         </el-table-column>
       </el-table>
@@ -58,57 +57,78 @@
 <!-- 提出時刻はcreatedAtを使う -->
 
 <script setup lang="ts">
+import useAuthStore from '~/stores/authStore'
+import { storeToRefs } from 'pinia'
 import { SubmitResponse } from '~/model/submits'
 import { onMounted, ref } from 'vue'
-import { listSubmits } from '~/api/submits'
+import { listSubmits, listSubmitsMe } from '~/api/submits'
+import { TaskResponse } from '~/model/tasks'
+import { allTasks } from '~/api/tasks'
+
+const { contestId } = defineProps<{ contestId: string }>()
+
+const auth = useAuthStore()
+const { user } = storeToRefs(auth)
 
 //test
 const problems = [
   {
-    date: '2022-06-20 18:09:15',
+    createdAt: '2022-06-20 18:09:15',
     problem: 'hoge',
     score: '2342',
-    result: 'WA',
+    status: 'WA',
     exectionTime: '9 ms',
-    memory: '10'
+    executionMemory: '10',
+    taskId: 1
   },
   {
-    date: '2022-06-20 18:09:15',
+    createdAt: '2022-06-20 18:09:15',
     problem: 'hoge',
     score: '2342',
-    result: 'WA',
+    status: 'AC',
     exectionTime: '9 ms',
-    memory: '10'
+    executionMemory: '10',
+    taskId: 3
   },
   {
-    date: '2022-06-20 18:09:15',
+    createdAt: '2022-06-20 18:09:15',
     problem: 'hoge',
     score: '2342',
-    result: 'RE',
+    status: 'WA',
     exectionTime: '9 ms',
-    memory: '10'
+    executionMemory: '10',
+    taskId: 2
   },
   {
-    date: '2022-06-20 18:09:15',
+    createdAt: '2022-06-20 18:09:15',
     problem: 'hoge',
     score: '2342',
-    result: 'AC',
+    status: 'TLE',
     exectionTime: '9 ms',
-    memory: '10'
+    executionMemory: '10',
+    taskId: 4
   },
   {
-    date: '2022-06-20 18:09:15',
+    createdAt: '2022-06-20 18:09:15',
     problem: 'hoge',
     score: '2342',
-    result: 'AC',
+    status: 'WA',
     exectionTime: '9 ms',
-    memory: '10'
+    executionMemory: '10',
+    taskId: 5
   }
 ]
+
 const submits = ref<SubmitResponse[]>([])
+const probName = ref<TaskResponse[]>([])
+const map = ref<Map<number, string>>(new Map<number, string>())
 
 onMounted(async () => {
   submits.value = await listSubmits()
+  probName.value = await allTasks(contestId)
+  for (let task of probName.value) {
+    map.value?.set(task.id, task.name)
+  }
 })
 </script>
 

@@ -1,7 +1,10 @@
 <template>
   <szpp-judge-default-layout>
-    <template #header> </template>
-    <h1>市民講座　競技プログラミング</h1>
+    <Markdown :source="contestRes?.name" />
+    <Markdown :source="contestRes?.category" />
+    <Markdown :source="contestRes?.description" />
+    <Markdown :source="contestRes?.startAt" />
+    <Markdown :source="contestRes?.endAt" />
   </szpp-judge-default-layout>
 </template>
 
@@ -18,6 +21,7 @@ import 'highlight.js/styles/monokai.css'
 import { onMounted, ref } from 'vue'
 import { ContestResponse } from '~/model/contests'
 import { getContestsInfo } from '~/api/contests'
+import Markdown from 'vue3-markdown-it'
 
 const { contestId } = defineProps<{
   contestId: string
