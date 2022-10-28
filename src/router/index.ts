@@ -101,13 +101,13 @@ router.beforeEach((to, _from, next) => {
     to.path === `/contests/${to.params.contestId}/submits` &&
     auth.user?.username === 'admin'
   ) {
-    next({ path: '/contests/${to.params.contestId}/submits/admin' })
+    next({ path: `/contests/${to.params.contestId}/submits/admin` })
   } else if (
     to.path === `/contests/${to.params.contestId}/submits/admin` &&
     auth.user?.username !== 'admin'
   ) {
     window.alert('admin用のページです')
-    next({ path: '/contests/${to.params.contestId}/submits' })
+    next({ path: `/contests/${to.params.contestId}/submits` })
   } else {
     next()
   }

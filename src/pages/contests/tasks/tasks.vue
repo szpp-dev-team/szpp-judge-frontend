@@ -2,9 +2,9 @@
   <szpp-judge-default-layout>
     <Markdown :source="taskDetail?.name" />
     <div>
-      実行時間制限:{{ taskDetail?.timeLimit }}sec/ メモリ制限:{{
+      実行時間制限:{{ taskDetail?.timeLimit }}ms/ メモリ制限:{{
         taskDetail?.memoryLimit
-      }}MB
+      }}KB
     </div>
     <div>
       {{ taskDetail?.score }}
