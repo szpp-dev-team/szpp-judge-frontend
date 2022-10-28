@@ -12,8 +12,8 @@ export async function login(username: string, password: string) {
     body,
     {}
   )
-
-  if (hasError) {
+  //console.log(hasError.value ? 1:0)
+  if (hasError.value) {
     console.debug(`error: ${errorMessage}`)
   } else if (data.value) {
     await auth.saveAuth(data.value.user, data.value.token)

@@ -3,7 +3,7 @@
     <h1 class="center">ランキング</h1>
     <div class="center">
       <el-table
-        :data="Ranking.rankInfoList"
+        :data="rankingInfo?.rankInfoList"
         stripe
         :border="true"
         style="width: 80%"
@@ -75,10 +75,20 @@ import useAuthStore from '~/stores/authStore'
 import { storeToRefs } from 'pinia'
 import { ref } from '@vue/reactivity'
 import { RankInfo, RankingResponse, TaskInfo } from '~/model/ranking'
+import { onMounted } from '@vue/runtime-core'
+import { fetchRank } from '~/api/ranking'
 const auth = useAuthStore()
 const { user } = storeToRefs(auth)
 
-const rankingInfo = ref<RankingResponse[]>([])
+const { contestId } = defineProps<{
+  contestId: string
+}>()
+
+const rankingInfo = ref<RankingResponse>()
+
+onMounted(async () => {
+  rankingInfo.value = await fetchRank(contestId)
+})
 
 //test 秒
 

@@ -43,6 +43,7 @@ const useAuthStore = defineStore({
       localStorage.removeItem('auth')
     },
     async saveAuth(user: UserInfo, token: string) {
+      console.log(token)
       this.$patch({
         user: {
           username: user.username,

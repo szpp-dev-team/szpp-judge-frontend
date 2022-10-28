@@ -85,7 +85,7 @@ async function submitForm(formEl: FormInstance | undefined) {
         },
         'xxxxxxxxxxxx'
       )
-      //await login(form.username, form.password)
+      await login(form.username, form.password)
       router.push({ path: '/' })
     }
   })
