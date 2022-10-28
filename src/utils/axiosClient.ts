@@ -1,7 +1,13 @@
 import axios, { AxiosResponse } from 'axios'
+import useAuthStore from '~/stores/authStore'
+
+const useAuth = useAuthStore()
 
 const client = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE
+  baseURL: import.meta.env.VITE_API_BASE,
+  headers: {
+    Authorization: `Bearer: ${useAuth.token}`
+  }
 })
 
 export async function httpGet<T>(

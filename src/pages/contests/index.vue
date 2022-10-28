@@ -15,10 +15,12 @@ ContestResponse
 -->
 <script setup lang="ts">
 import 'highlight.js/styles/monokai.css'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { ContestResponse } from '~/model/contests'
 
 const contestRes = ref<ContestResponse>()
+
+//contestRes.value = await contests(1)
 
 const { contestId } = defineProps<{
   contestId: string

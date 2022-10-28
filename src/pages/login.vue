@@ -43,6 +43,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import router from '~/router'
 import useAuthStore from '~/stores/authStore'
+import { login } from '~/api/auth'
 
 const formRef = ref<FormInstance>()
 const form = reactive({
