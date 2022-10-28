@@ -17,11 +17,17 @@
               placeholder="ユーザー名"
             />
           </el-form-item>
+          <el-form-item prop="displayName">
+            <el-input
+              v-model="form.displayName"
+              placeholder="表示名 (オプション)"
+            />
+          </el-form-item>
           <el-form-item prop="password">
             <el-input
               v-model="form.password"
               type="password"
-              placeholder="パスワード"
+              placeholder="パスワード (英数小文字8文字以上)"
             />
           </el-form-item>
           <el-form-item>
@@ -47,6 +53,7 @@ import useAuthStore from '~/stores/authStore'
 const formRef = ref<FormInstance>()
 const form = reactive({
   username: '',
+  displayName: '',
   password: ''
 })
 const rules = reactive<FormRules>({
@@ -55,6 +62,14 @@ const rules = reactive<FormRules>({
       required: true,
       type: 'string',
       message: 'ユーザー名を入力してください',
+      trigger: 'blur'
+    }
+  ],
+  displayName: [
+    {
+      required: false,
+      type: 'string',
+      message: '表示名の形式が不正です', // ルールがゆるいので多分この message 出ない
       trigger: 'blur'
     }
   ],
