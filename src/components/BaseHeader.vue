@@ -53,6 +53,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { TaskResponse } from '~/model/tasks'
 
 // サンプル
 const tasks = [
@@ -69,6 +70,7 @@ const tasks = [
   { name: 'D 超難しい' },
   { name: 'D 超難しい' }
 ]
+
 const activeIndex = ref('1')
 </script>
 
