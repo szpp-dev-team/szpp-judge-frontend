@@ -52,24 +52,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { TaskResponse } from '~/model/tasks'
+import { allTasks } from '~/api/tasks'
 
-// サンプル
-const tasks = [
-  { name: 'A 優しい' },
-  { name: 'B 普通' },
-  { name: 'C 難しい' },
-  { name: 'D 超難しfasdfasdfszdfasdfasdfsadfadsfdsafdafdfaい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' },
-  { name: 'D 超難しい' }
-]
+const tasks = ref<TaskResponse[]>([])
+
+const needInfo = async () => {
+  tasks.value = await allTasks('1')
+}
+
+onMounted(needInfo)
 
 const activeIndex = ref('1')
 </script>

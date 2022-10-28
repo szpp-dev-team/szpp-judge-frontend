@@ -12,14 +12,14 @@ export const oneTask = async (taskId: string): Promise<TaskResponse> => {
   return resp.data
 }
 
-export const allTestCaseId = async (taskId: string): Promise<testCaseId> => {
-  const resp = await httpGet<testCaseId>(`/tasks/${taskId}/testcases`)
+export const allTestCaseId = async (taskId: string): Promise<testCaseId[]> => {
+  const resp = await httpGet<testCaseId[]>(`/tasks/${taskId}/testcases`)
   return resp.data
 }
 
 export const testCaseDetail = async (
-  taskId: number,
-  testCaseId: number
+  taskId: string,
+  testCaseId: string
 ): Promise<testCase> => {
   const resp = await httpGet<testCase>(
     `/tasks/${taskId}/testcases/${testCaseId}`
