@@ -25,7 +25,7 @@
           >
             <el-menu-item
               :index="'1' + index"
-              :route="{ path: '/contests/1/tasks/' + (index + 1) }"
+              :route="{ path: `/contests/1/tasks/${task.id}` }"
               v-bind:key="index"
               style="margin-left: 1212"
             >

@@ -1,10 +1,12 @@
 <template>
   <szpp-judge-default-layout>
-    <Markdown :source="contestRes?.name" />
+    <div class="category">{{ contestRes?.category }}</div>
+
+    <!-- <Markdown :source="contestRes?.name" />
     <Markdown :source="contestRes?.category" />
     <Markdown :source="contestRes?.description" />
     <Markdown :source="contestRes?.startAt" />
-    <Markdown :source="contestRes?.endAt" />
+    <Markdown :source="contestRes?.endAt" /> -->
   </szpp-judge-default-layout>
 </template>
 
@@ -38,3 +40,11 @@ onMounted(needInfo)
 
 //contestRes.value = await contests(1)
 </script>
+
+<style scoped lang="scss">
+.category {
+  display: flex;
+  justify-content: center;
+  font-size: 100px;
+}
+</style>

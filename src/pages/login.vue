@@ -78,13 +78,6 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate(async (valid, _) => {
     if (valid) {
       loading.value = true
-      await auth.saveAuth(
-        {
-          username: 'hoge',
-          displayName: 'hoge'
-        },
-        'xxxxxxxxxxxx'
-      )
       await login(form.username, form.password)
       router.push({ path: '/' })
     }
