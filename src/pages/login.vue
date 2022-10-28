@@ -42,7 +42,6 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import router from '~/router'
-import useAuthStore from '~/stores/authStore'
 import { login } from '~/api/auth'
 
 const formRef = ref<FormInstance>()
@@ -70,8 +69,6 @@ const rules = reactive<FormRules>({
 })
 // TODO: useFetch などのフックを使ってここで loading のフラグ管理などをするのをやめる
 const loading = ref(false)
-
-const auth = useAuthStore()
 
 async function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
