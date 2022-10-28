@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
+import { registerUser } from '~/api/users'
 import router from '~/router'
 import useAuthStore from '~/stores/authStore'
 
@@ -92,8 +93,12 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate(async (valid, _) => {
     if (valid) {
       loading.value = true
-      // await auth.login(form.username, form.password)
-      router.push({ path: '/' })
+      try {
+        await registerUser(form)
+        router.push({ path: '/' })
+      } catch (err: unknown) {
+        alert(`登録中にエラーが発生しました\n${(err as Error).message}`)
+      }
     }
   })
 }
