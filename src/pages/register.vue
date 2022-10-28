@@ -86,8 +86,6 @@ const rules = reactive<FormRules>({
 // TODO: useFetch などのフックを使ってここで loading のフラグ管理などをするのをやめる
 const loading = ref(false)
 
-const auth = useAuthStore()
-
 async function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   await formEl.validate(async (valid, _) => {
