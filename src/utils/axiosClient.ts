@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
 const client = axios.create({
-  baseURL: import.meta.env.API_BASE
+  baseURL: import.meta.env.VITE_API_BASE
 })
 
 export async function httpGet<T>(
