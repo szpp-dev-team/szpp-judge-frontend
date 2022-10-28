@@ -2,13 +2,11 @@
   <szpp-judge-default-layout>
     <Markdown :source="taskDetail?.name" />
     <div>
-      実行時間制限:{{ taskDetail?.timeLimit }}ms/ メモリ制限:{{
+      実行時間制限:{{ taskDetail?.timeLimit }}ms / メモリ制限:{{
         taskDetail?.memoryLimit
       }}KB
     </div>
-    <div>
-      {{ taskDetail?.score }}
-    </div>
+    <div>score {{ taskDetail?.score }}</div>
     <Markdown :source="taskDetail?.statement" :html="true" />
     <Markdown :source="taskDetail?.constraints" />
     <Markdown :source="taskDetail?.input" />
@@ -32,7 +30,7 @@ import { allTestCaseId, oneTask, testCaseDetail } from '~/api/tasks'
 import { TaskResponse, testCase } from '~/model/tasks'
 
 const taskDetail = ref<TaskResponse>()
-const testCase = ref<testCase[]>()
+const testCase = ref<testCase[]>([])
 
 const { taskId, contestId } = defineProps<{
   taskId: string
@@ -43,14 +41,14 @@ const needInfo = async () => {
   try {
     taskDetail.value = await oneTask(taskId)
     const testCaseId = await allTestCaseId(taskId)
-    for (let id of testCaseId) {
-      const caseTest: testCase = await testCaseDetail(taskId, String(id))
+    for (const id of testCaseId) {
+      console.log(id.id)
+      const caseTest: testCase = await testCaseDetail(taskId, `${id.id}`)
       testCase.value?.push(caseTest)
     }
   } catch (e) {
     console.debug(e)
   }
 }
-
 onMounted(needInfo)
 </script>
