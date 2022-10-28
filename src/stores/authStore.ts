@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { UserResponse } from '~/model/auth'
+import { UserResponse } from '~/model/users'
 
 type UserInfo = Pick<UserResponse, 'username' | 'displayName'>
 

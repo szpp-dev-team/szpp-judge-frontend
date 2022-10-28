@@ -17,11 +17,17 @@
               placeholder="ユーザー名"
             />
           </el-form-item>
+          <el-form-item prop="displayName">
+            <el-input
+              v-model="form.displayName"
+              placeholder="表示名 (オプション)"
+            />
+          </el-form-item>
           <el-form-item prop="password">
             <el-input
               v-model="form.password"
               type="password"
-              placeholder="パスワード"
+              placeholder="パスワード (英数小文字8文字以上)"
             />
           </el-form-item>
           <el-form-item>
@@ -41,12 +47,14 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
+import { registerUser } from '~/api/users'
 import router from '~/router'
 import useAuthStore from '~/stores/authStore'
 
 const formRef = ref<FormInstance>()
 const form = reactive({
   username: '',
+  displayName: '',
   password: ''
 })
 const rules = reactive<FormRules>({
@@ -55,6 +63,14 @@ const rules = reactive<FormRules>({
       required: true,
       type: 'string',
       message: 'ユーザー名を入力してください',
+      trigger: 'blur'
+    }
+  ],
+  displayName: [
+    {
+      required: false,
+      type: 'string',
+      message: '表示名の形式が不正です', // ルールがゆるいので多分この message 出ない
       trigger: 'blur'
     }
   ],
@@ -70,15 +86,17 @@ const rules = reactive<FormRules>({
 // TODO: useFetch などのフックを使ってここで loading のフラグ管理などをするのをやめる
 const loading = ref(false)
 
-const auth = useAuthStore()
-
 async function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   await formEl.validate(async (valid, _) => {
     if (valid) {
       loading.value = true
-      // await auth.login(form.username, form.password)
-      router.push({ path: '/' })
+      try {
+        await registerUser(form)
+        router.push({ path: '/' })
+      } catch (err: unknown) {
+        alert(`登録中にエラーが発生しました\n${(err as Error).message}`)
+      }
     }
   })
 }
