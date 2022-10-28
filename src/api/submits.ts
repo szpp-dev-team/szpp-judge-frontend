@@ -8,7 +8,7 @@ export const submitTask = async (
   return resp.data
 }
 
-// 使わないっぽい
+//今回はadmin用
 export const listSubmits = async (): Promise<SubmitResponse[]> => {
   const resp = await httpGet<SubmitResponse[]>('/submits')
   return resp.data

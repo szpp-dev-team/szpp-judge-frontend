@@ -55,6 +55,12 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/contests/:contestId/submits/admin',
+    component: () => import('~/pages/contests/submits/adminSubmits.vue'),
+    props: (route) => ({ contestId: route.params.contestId }),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/contests/:contestId/ranking',
     component: () => import('~/pages/contests/ranking/ranking.vue'),
     props: (route) => ({ contestId: route.params.contestId }),
@@ -91,6 +97,17 @@ router.beforeEach((to, _from, next) => {
   if (to.path !== '/login' && to.meta.requiresAuth && !auth.user) {
     console.log('redirect to login')
     next({ path: '/login' })
+  } else if (
+    to.path === `/contests/${to.params.contestId}/submits` &&
+    auth.user?.username === 'admin'
+  ) {
+    next({ path: '/contests/${to.params.contestId}/submits/admin' })
+  } else if (
+    to.path === `/contests/${to.params.contestId}/submits/admin` &&
+    auth.user?.username !== 'admin'
+  ) {
+    window.alert('admin用のページです')
+    next({ path: '/contests/${to.params.contestId}/submits' })
   } else {
     next()
   }

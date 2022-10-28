@@ -9,9 +9,9 @@ async function loginMock(username: string, password: string) {
   return {
     user: {
       id: 5,
-      username: 'bob001',
+      username: 'admin',
       encryptedPassword: 'drowssap',
-      displayName: 'Bob'
+      displayName: 'admin'
     },
     token: 'eyJhbGciOiJIUzI1NiIxxxxxxxxxxxxxxxxxxxx' // dummy
   }

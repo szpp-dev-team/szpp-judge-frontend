@@ -80,8 +80,8 @@ async function submitForm(formEl: FormInstance | undefined) {
       loading.value = true
       await auth.saveAuth(
         {
-          username: 'Bob',
-          displayName: 'Bob'
+          username: 'hoge',
+          displayName: 'hoge'
         },
         'xxxxxxxxxxxx'
       )
