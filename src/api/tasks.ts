@@ -1,9 +1,5 @@
-import { TaskInfo } from '~/model/ranking'
 import { TaskResponse, testCase, testCaseId } from '~/model/tasks'
-import useAuthStore from '~/stores/authStore'
 import { httpGet } from '~/utils/axiosClient'
-
-const auth = useAuthStore()
 
 export const allTasks = async (contestId: string): Promise<TaskResponse[]> => {
   const resp = await httpGet<TaskResponse[]>(`/contests/${contestId}/tasks`)

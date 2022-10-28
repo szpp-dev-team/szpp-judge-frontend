@@ -71,12 +71,8 @@
   </szpp-judge-default-layout>
 </template>
 <script setup lang="ts">
-import useAuthStore from '~/stores/authStore'
-import { storeToRefs } from 'pinia'
 import { ref } from '@vue/reactivity'
 import { RankInfo, RankingResponse, TaskInfo } from '~/model/ranking'
-const auth = useAuthStore()
-const { user } = storeToRefs(auth)
 
 const rankingInfo = ref<RankingResponse[]>([])
 
