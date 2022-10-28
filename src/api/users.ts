@@ -1,7 +1,9 @@
 import { httpGet, httpPost } from '~/utils/axiosClient'
 import { UserPayload, UserResponse } from '../model/users'
 
-export const register = async (payload: UserPayload): Promise<UserResponse> => {
+export const registerUser = async (
+  payload: UserPayload
+): Promise<UserResponse> => {
   const resp = await httpPost<UserResponse>('/users', payload)
   return resp.data
 }
