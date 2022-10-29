@@ -1,4 +1,4 @@
-import { TaskResponse, testCase, testCaseId } from '~/model/tasks'
+import { TaskResponse, TestCase, TestCaseId } from '~/model/tasks'
 import { httpGet } from '~/utils/axiosClient'
 
 export const allTasks = async (contestId: string): Promise<TaskResponse[]> => {
@@ -11,16 +11,16 @@ export const oneTask = async (taskId: string): Promise<TaskResponse> => {
   return resp.data
 }
 
-export const allTestCaseId = async (taskId: string): Promise<testCaseId[]> => {
-  const resp = await httpGet<testCaseId[]>(`/tasks/${taskId}/testcases`)
+export const allTestCaseId = async (taskId: string): Promise<TestCaseId[]> => {
+  const resp = await httpGet<TestCaseId[]>(`/tasks/${taskId}/testcases`)
   return resp.data
 }
 
 export const testCaseDetail = async (
   taskId: string,
   testCaseId: string
-): Promise<testCase> => {
-  const resp = await httpGet<testCase>(
+): Promise<TestCase> => {
+  const resp = await httpGet<TestCase>(
     `/tasks/${taskId}/testcases/${testCaseId}`
   )
   return resp.data
