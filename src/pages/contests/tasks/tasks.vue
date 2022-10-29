@@ -27,11 +27,11 @@
 import { onMounted, ref, watch } from 'vue'
 import Markdown from 'vue3-markdown-it'
 import { allTestCaseId, oneTask, testCaseDetail } from '~/api/tasks'
-import { TaskResponse, testCase } from '~/model/tasks'
+import { TaskResponse, TestCase } from '~/model/tasks'
 import { useRoute } from 'vue-router'
 
 const taskDetail = ref<TaskResponse>()
-const testCase = ref<testCase[]>([])
+const testCase = ref<TestCase[]>([])
 
 const props = defineProps<{
   taskId: string

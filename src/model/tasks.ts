@@ -18,13 +18,13 @@ export interface TaskResponse {
   updatedAt?: Date
 }
 
-export interface testCaseId {
+export interface TestCaseId {
   id: number
   name: string
   task_id: number
 }
 
-export interface testCase {
+export interface TestCase {
   id: number
   name: string
   task_id: number
