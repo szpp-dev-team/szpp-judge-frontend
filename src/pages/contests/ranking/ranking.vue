@@ -6,14 +6,14 @@
         :data="rankingInfo?.rankInfoList"
         stripe
         :border="true"
-        style="width: 80%"
+        style="width: 38.6%"
         :header-cell-style="{ textAlign: 'center' }"
         :cell-style="{ padding: '3px', height: '50px' }"
       >
         <el-table-column label="順位" width="80">
-          <template #default="scope">
+          <template #default="scope1">
             <div class="center">
-              {{ scope.row.rank }}
+              {{ scope1.row.rank }}
             </div>
           </template>
         </el-table-column>
@@ -39,33 +39,33 @@
             </p>
           </template>
         </el-table-column>
-        <el-table-column
-          v-for="(info, index) in rankInfo.taskInfoList"
-          :key="index"
-          :label="`${info.taskId}`"
-          width="100"
-        >
-          <template #default>
-            <div class="center">
-              <p
-                class="penarty"
-                v-if="info.score == 0 && info.penartyCount != 0"
-              >
-                ({{ info.penartyCount }})
-              </p>
-              <p v-else-if="info.score == 0 && info.penartyCount == 0">-</p>
-              <p class="taskScore" v-else>
-                {{ info.score }}
-                <span class="penarty" v-if="info.penartyCount != 0">
+        <!-- <el-table-column
+            v-for="(info, index) in Ranking?.rankInfoList"
+            :key="index"
+            :label="`${info.taskId}`"
+            width="100"
+          >
+            <template #default>
+              <div class="center">
+                <p
+                  class="penarty"
+                  v-if="info.score == 0 && info.penartyCount != 0"
+                >
                   ({{ info.penartyCount }})
-                </span>
+                </p>
+                <p v-else-if="info.score == 0 && info.penartyCount == 0">-</p>
+                <p class="taskScore" v-else>
+                  {{ info.score }}
+                  <span class="penarty" v-if="info.penartyCount != 0">
+                    ({{ info.penartyCount }})
+                  </span>
+                </p>
+              </div>
+              <p class="duration" v-if="info.score != 0">
+                {{ timeParse(info.duration) }}
               </p>
-            </div>
-            <p class="duration" v-if="info.score != 0">
-              {{ timeParse(info.duration) }}
-            </p>
-          </template>
-        </el-table-column>
+            </template>
+          </el-table-column> -->
       </el-table>
     </div>
   </szpp-judge-default-layout>
