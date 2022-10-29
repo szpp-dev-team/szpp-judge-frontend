@@ -29,7 +29,7 @@
               v-bind:key="index"
               style="margin-left: 1212"
             >
-              ({{ index + 1 }}) {{ task.name }}
+              ({{ task.position }}) {{ task.name }}
             </el-menu-item>
           </el-col>
         </el-row>
@@ -53,13 +53,14 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { TaskResponse } from '~/model/tasks'
+import { ContestTaskResponse } from '~/model/tasks'
 import { allTasks } from '~/api/tasks'
 
-const tasks = ref<TaskResponse[]>([])
+const tasks = ref<ContestTaskResponse[]>([])
 
 const needInfo = async () => {
   tasks.value = await allTasks('1')
+  tasks.value.sort((a, b) => a.position - b.position)
 }
 
 onMounted(needInfo)
