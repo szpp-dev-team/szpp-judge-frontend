@@ -29,7 +29,7 @@
               v-bind:key="index"
               style="margin-left: 1212"
             >
-              {{ task.name }}
+              ({{ index + 1 }}) {{ task.name }}
             </el-menu-item>
           </el-col>
         </el-row>

@@ -1,10 +1,11 @@
 <template>
   <el-upload
     ref="fileUploadRef"
+    drag
     action=""
     :auto-upload="false"
     list-type="text"
-    accept="file"
+    accept=".sb3"
     v-model:file-list="fileList"
     :limit="1"
     :on-change="onFileInputChange"
@@ -12,7 +13,7 @@
   >
     <el-button type="primary">
       <el-icon class="el-icon--left"><i-ep-upload /></el-icon>
-      ファイルを選択
+      Scratch のファイルをアップロード
     </el-button>
     <template #tip>
       <div class="el-upload__tip text-red">
@@ -21,7 +22,9 @@
     </template>
   </el-upload>
   <el-button type="success" @click="submit" :disabled="!readyToSubmit">
-    {{ readyToSubmit ? '提出' : 'ファイルが選択されていません' }}
+    {{
+      readyToSubmit ? '提出' : '提出するにはファイルをアップロードしてください'
+    }}
   </el-button>
 </template>
 
