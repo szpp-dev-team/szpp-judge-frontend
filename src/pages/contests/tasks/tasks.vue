@@ -33,15 +33,15 @@ import { useRoute } from 'vue-router'
 const taskDetail = ref<TaskResponse>()
 const testCase = ref<testCase[]>([])
 
-const { taskId, contestId } = defineProps<{
+const props = defineProps<{
   taskId: string
   contestId: string
 }>()
 
-const needInfo = async (needingTaskId) => {
+const needInfo = async (taskId) => {
   try {
-    taskDetail.value = await oneTask(needingTaskId)
-    const testCaseId = await allTestCaseId(needingTaskId)
+    taskDetail.value = await oneTask(taskId)
+    const testCaseId = await allTestCaseId(taskId)
 
     // TODO: バックエンドのテストケース取得APIがバグっているのでコメントアウト
     // for (let id of testCaseId) {
@@ -63,5 +63,5 @@ watch(
   }
 )
 
-onMounted(() => needInfo(taskId))
+onMounted(() => needInfo(props.taskId))
 </script>
