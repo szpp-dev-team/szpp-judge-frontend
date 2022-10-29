@@ -11,9 +11,9 @@
         :cell-style="{ padding: '3px', height: '50px' }"
       >
         <el-table-column label="順位" width="80">
-          <template #default="scope1">
+          <template #default="scope">
             <div class="center">
-              {{ scope1.row.rank }}
+              {{ scope.row.rank }}
             </div>
           </template>
         </el-table-column>
