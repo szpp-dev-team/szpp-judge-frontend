@@ -36,6 +36,7 @@ import {
   UploadUserFile
 } from 'element-plus'
 import { reactive, ref } from 'vue'
+import { submitTask } from '~/api/submits'
 import { SubmitPayload } from '~/model/submits'
 import { Sb3ToCppConverter } from '~/utils/scratch2cpp'
 
@@ -47,7 +48,7 @@ const { taskId, contestId } = defineProps<{
 const submitPayload = reactive<SubmitPayload>({
   taskId,
   contestId,
-  languageId: '',
+  languageId: 'cpp', // cpp 固定
   sourceCode: ''
 })
 
@@ -96,7 +97,16 @@ function updateReadyState() {
   }
 }
 
-function submit() {
+async function submit() {
+  try {
+    if (submitPayload.sourceCode.length > 0) {
+      await submitTask(submitPayload)
+    }
+  } catch (err: unknown) {
+    alert(`提出に失敗 ${(err as Error).message}`)
+  } finally {
+    updateReadyState()
+  }
   console.debug('submit() was called')
   console.debug('submitPayload', submitPayload)
 }
