@@ -38,7 +38,7 @@ const props = defineProps<{
   contestId: string
 }>()
 
-const needInfo = async (taskId) => {
+const needInfo = async (taskId: string) => {
   try {
     taskDetail.value = await oneTask(taskId)
     const testCaseId = await allTestCaseId(taskId)
@@ -59,7 +59,7 @@ const route = useRoute()
 watch(
   () => route.params.taskId,
   async (newTaskId) => {
-    await needInfo(newTaskId)
+    await needInfo(newTaskId as string)
   }
 )
 
