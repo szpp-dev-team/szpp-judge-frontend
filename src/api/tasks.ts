@@ -1,8 +1,17 @@
-import { TaskResponse, TestCase, TestCaseId } from '~/model/tasks'
+import {
+  ContestTaskResponse,
+  TaskResponse,
+  TestCase,
+  TestCaseId
+} from '~/model/tasks'
 import { httpGet } from '~/utils/axiosClient'
 
-export const allTasks = async (contestId: string): Promise<TaskResponse[]> => {
-  const resp = await httpGet<TaskResponse[]>(`/contests/${contestId}/tasks`)
+export const allTasks = async (
+  contestId: string
+): Promise<ContestTaskResponse[]> => {
+  const resp = await httpGet<ContestTaskResponse[]>(
+    `/contests/${contestId}/tasks`
+  )
   return resp.data
 }
 
